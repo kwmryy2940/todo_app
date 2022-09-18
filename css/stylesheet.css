@@ -1,0 +1,20 @@
+.title{
+    text-align: center;
+    font-family: "Century";
+    padding-left: 40px;
+    line-height: 30px;
+}
+
+.title:before{
+    content:url(../images/task.png);
+}
+
+body{
+    text-align: center;
+    font-family: "Century";
+}
+
+/* リストの黒丸を消す */
+ul{
+    list-style: none;
+}
