@@ -5,6 +5,8 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" type="text/css" href="css/stylesheet.css">
+    <!-- FontawesomeをCDNで利用 -->
+    <link rel ="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/css/all.min.css">
     <title>ToDo List</title>
 </head>
 <body>
@@ -12,12 +14,16 @@
         <h1 class="title">ToDo List</h1>
     </header>
     <form class="addlist">
-        <input class="task_value" type="text" placeholder="ここにタスクを入力">
-        <button class="task_submit" type="button">Add Task</button>
+        <input class="task_value" type="text" placeholder="task" autofocus>
+        <button class="task_submit" type="submit">Add Task</button>
     </form>
-    <div id="table">
-       <h2>Task List</h2>
-       <ul class="task_list"></ul>
+    <div class="container" id="todo-app">
+        <div class="lists">
+            <ul id="todo">ToDo List</ul>
+        </div>
+        <div class="lists">
+            <ul id="done">Done List</ul>
+        </div>
     </div>
 <script src="javascript/main.js"></script>
 </body>

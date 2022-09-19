@@ -1,48 +1,92 @@
-// task_valueクラスの要素を取得
-const taskValue=document.getElementsByClassName('task_value')[0];
-// task_submitクラスの要素を取得
-const taskSubmit=document.getElementsByClassName('task_submit')[0];
-// task_listクラスの要素を取得
-const taskList=document.getElementsByClassName('task_list')[0];
+// class task_submitを取得
+var taskSubmit=document.getElementsByClassName('task_submit')[0];
 
-// 追加ボタンを作成
-const addTasks = (task) => {
-    // 入力したタスクを追加・表示
-    const listItem = document.createElement('li');  // createElementでリスト要素を生成
-    const showItem = taskList.appendChild(listItem);    // appendChildで親要素(taskList)に対して子要素(listItem)を追加
-    showItem.innerHTML = task;  // 入力したタスクを表示する
-  
-    // タスクに削除ボタンを付与
-    const deleteButton = document.createElement('button');
-    deleteButton.innerHTML = 'Delete';
-    listItem.appendChild(deleteButton);
-  
-    // 削除ボタンをクリックし、イベントを発動（タスクが削除）
-    deleteButton.addEventListener('click', evt => {
-      evt.preventDefault();
-      deleteTasks(deleteButton);
+// Add Taskボタンを押したときの処理
+taskSubmit.addEventListener('click', evt => {
+  evt.preventDefault();
+
+  // タスクを追加
+  addTasks();
+  // タスクを削除
+  deleteTask();
+  // タスクを完了済みにする
+  doneTask();
+});
+
+// タスクの追加
+function addTasks(){
+  // 入力したタスクを取得
+  var taskValue=document.getElementsByClassName('task_value')[0];
+  // taskValueのtextを取得
+  var text=document.createTextNode(taskValue.value);
+
+  let message=[];
+  // 未入力の場合はエラー
+  if(text.data=="")
+  {
+    message.push("タスクを入力してください。");
+    alert(message);
+    taskValue.focus();
+    return;
+  }
+
+  // li要素にタスクを追加
+  var taskList=document.createElement('li');
+  taskList.appendChild(text);
+
+  // li要素にDeleteボタンを追加
+  var trash=document.createElement('button');
+  trash.classList.add('trashPosition');  // レイアウト調整用クラスを追加
+  trash.classList.add('trash');
+  trash.innerHTML= 'Delete <i class="fa-solid fa-trash-can"></i>';
+  taskList.appendChild(trash);
+
+  // li要素にDoneボタンを追加
+  var check=document.createElement('button');
+  check.classList.add('checkPosition');  // レイアウト調整用クラスを追加
+  check.classList.add('check');
+  check.innerHTML='Done <i class="fa-solid fa-square-check"></i>';
+  taskList.appendChild(check);
+
+  var todoLists=document.getElementById('todo');
+  todoLists.appendChild(taskList);
+
+  // 入力欄をクリア
+  taskValue.value = '';
+  taskValue.focus();
+};
+
+// タスクの削除
+function deleteTask(){
+  // trashクラスの要素を取得
+  var trash=document.getElementsByClassName('trash');
+  // クリックしたliタグの配列数を取得
+  for(var i=0;i<trash.length;i++){
+    // Deleteボタンを押したときの処理
+    trash[i].addEventListener('click',function(){
+      // this=trash[i]
+      var li=this.parentNode;
+      // trash[i]から、クリックした要素を削除
+      li.remove();
     });
   };
+};
 
-// 削除ボタンにタスクを消す機能を付与
-const deleteTasks = (deleteButton) => {
-    const chosenTask = deleteButton.closest('li');
-    taskList.removeChild(chosenTask);
+// タスクを完了済みにする
+function doneTask(){
+  // checkクラスの要素を取得
+  var check=document.getElementsByClassName('check');
+  // doneクラスの要素を取得
+  var doneList=document.getElementById('done');
+  for(var i=0;i<check.length;i++){
+    // Doneボタンを押したときの処理
+    check[i].addEventListener('click',function(){
+      // this=check[i]
+      var li=this.parentNode;
+      // doneクラスに、クリックした要素を追加
+      doneList.appendChild(li);
+      // checkクラスから、クリックした要素を削除
+      this.remove();
+    });
   };
-  
-  // 追加ボタンをクリックし、イベントを発動（タスクが追加）
-  taskSubmit.addEventListener('click', evt => {
-    evt.preventDefault();
-    const task = taskValue.value;
-    let message=[];
-
-    if(task=="")
-    {
-      message.push("タスクを入力してください。");
-      alert(message);
-      return;
-    }
-
-    addTasks(task);
-    taskValue.value = '';
-  });
+};

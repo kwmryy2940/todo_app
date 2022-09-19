@@ -1,3 +1,8 @@
+body{
+    background-color: lightgray;
+    color: black;
+}
+
 .title{
     text-align: center;
     font-family: "Century";
@@ -9,7 +14,7 @@
     content:url(../images/task.png);
 }
 
-body{
+.addlist{
     text-align: center;
     font-family: "Century";
 }
@@ -17,4 +22,27 @@ body{
 /* リストの黒丸を消す */
 ul{
     list-style: none;
+    padding:10px;
+}
+
+ul li{
+    line-height: 2;
+}
+
+.container {
+    display: flex;
+    flex-wrap: nowrap;
+}
+
+.lists{
+    font-family: "Century";
+    background-color: gray;
+    color: white;
+    margin: 10px;
+    width: calc(50% - 10px);
+    flex:1;
+}
+
+.deletePosition{
+    text-align: right;
 }
